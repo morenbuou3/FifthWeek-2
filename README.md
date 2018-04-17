@@ -1,5 +1,10 @@
 # Unit Test基础
 
+## 测出实现代码中的BUG
+AnswerGenerator类中generate()方法调用了randomIntGenerator.generateNums(9,4)方法，
+这里的9是digitmax，在generateNums方法中通过random.nextInt(digitmax)生成0~digitmax随机数，
+但是nextInt方法取的是开区间，因此如果想得到0~9，这里的digitmax应该写成10而不是9.
+
 ## 练习描述
 
 实现猜数字的游戏。游戏有四个格子，每个格子有一个0到9的数字，任意两个格子的数字都不一样。你有6次猜测的机会，如果猜对则获胜，否则失败。每次猜测时需依序输入4个数字，程序会根据猜测的情况给出xAxB的反馈，A前面的数字代表位置和数字都对的个数，B前面的数字代表数字对但是位置不对的个数。
