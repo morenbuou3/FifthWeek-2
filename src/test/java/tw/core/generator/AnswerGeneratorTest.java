@@ -32,7 +32,7 @@ public class AnswerGeneratorTest {
         String expectAnswer = "1 2 3 4";
 
         //When
-        when(randomIntGenerator.generateNums(9, 4)).thenReturn(expectAnswer);
+        when(randomIntGenerator.generateNums(10, 4)).thenReturn(expectAnswer);
 
         //Then
         assertThat(answerGenerator.generate().toString(), is(expectAnswer));
