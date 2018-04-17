@@ -1,7 +1,9 @@
 package tw.core.generator;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import tw.core.exception.OutOfRangeAnswerException;
 
 import java.util.Arrays;
@@ -9,6 +11,7 @@ import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -19,6 +22,9 @@ public class AnswerGeneratorTest {
 
     private RandomIntGenerator randomIntGenerator;
     private AnswerGenerator answerGenerator;
+
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
 
     @Before
     public void setUp() throws Exception {
@@ -36,6 +42,22 @@ public class AnswerGeneratorTest {
 
         //Then
         assertThat(answerGenerator.generate().toString(), is(expectAnswer));
+
+    }
+
+    @Test
+    public void test_should_return_an_exception_when_give_wrong_digit() throws OutOfRangeAnswerException {
+        //Given
+        String wrongDigit = "a";
+        String expectAnswer = "1 2 3 a";
+
+        //When
+        when(randomIntGenerator.generateNums(10, 4)).thenReturn(expectAnswer);
+
+        //Then
+        expectedException.expect(NumberFormatException.class);
+        expectedException.expectMessage("For input string: \"" + wrongDigit + "\"");
+        answerGenerator.generate();
 
     }
 }
