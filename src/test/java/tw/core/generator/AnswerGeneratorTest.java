@@ -6,12 +6,8 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import tw.core.exception.OutOfRangeAnswerException;
 
-import java.util.Arrays;
-import java.util.List;
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -46,7 +42,7 @@ public class AnswerGeneratorTest {
     }
 
     @Test
-    public void test_should_return_an_exception_when_give_wrong_digit() throws OutOfRangeAnswerException {
+    public void test_should_return_an_NumberFormatException_when_give_wrong_digit() throws OutOfRangeAnswerException {
         //Given
         String wrongDigit = "a";
         String expectAnswer = "1 2 3 a";
@@ -57,6 +53,21 @@ public class AnswerGeneratorTest {
         //Then
         expectedException.expect(NumberFormatException.class);
         expectedException.expectMessage("For input string: \"" + wrongDigit + "\"");
+        answerGenerator.generate();
+
+    }
+
+    @Test
+    public void test_should_return_an_OutOfRangeAnswerException_when_give_repeat_digit() throws OutOfRangeAnswerException {
+        //Given
+        String expectAnswer = "1 2 3 3";
+
+        //When
+        when(randomIntGenerator.generateNums(10, 4)).thenReturn(expectAnswer);
+
+        //Then
+        expectedException.expect(OutOfRangeAnswerException.class);
+        expectedException.expectMessage("Answer format is incorrect");
         answerGenerator.generate();
 
     }
