@@ -21,7 +21,7 @@ public class RandomIntGeneratorTest {
     }
 
     @Test
-    public void should_generate_4_num() {
+    public void test_should_generate_4_num() {
         //Given
         String result = randomIntGenerator.generateNums(10, 4);
         int length = result.split(" ").length;
@@ -32,7 +32,7 @@ public class RandomIntGeneratorTest {
     }
 
     @Test
-    public void should_have_digit() {
+    public void test_should_have_digit() {
         //Given
         String result = randomIntGenerator.generateNums(10, 4);
         long actual = Arrays.stream(result.split(" "))
@@ -44,7 +44,7 @@ public class RandomIntGeneratorTest {
     }
 
     @Test
-    public void should_have_0_to_9_digit() {
+    public void test_should_have_0_to_9_digit() {
         //Given
         String result = randomIntGenerator.generateNums(10, 4);
         long actual = Arrays.stream(result.split(" "))
@@ -57,7 +57,7 @@ public class RandomIntGeneratorTest {
     }
 
     @Test
-    public void should_have_4_diff_digit() {
+    public void test_should_have_4_diff_digit() {
         //Given
         String result = randomIntGenerator.generateNums(10, 4);
         long actual = Arrays.stream(result.split(" "))
