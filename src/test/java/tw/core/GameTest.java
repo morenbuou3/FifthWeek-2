@@ -5,7 +5,9 @@ import org.junit.Test;
 import tw.core.generator.AnswerGenerator;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -99,5 +101,34 @@ public class GameTest {
 
         //Then
         assertThat(game.checkStatus(), is(expect));
+    }
+
+    @Test
+    public void test_should_return_true_when_give_3_wrong_answer() {
+        //Given
+        String[] answers = {"2 3 1 5", "5 3 4 6", "8 1 9 2"};
+        Answer answer;
+        for (int i = 0; i < answers.length; i++) {
+            answer = Answer.createAnswer(answers[i]);
+            game.guess(answer);
+        }
+
+        //Then
+        assertTrue(game.checkCoutinue());
+    }
+
+    @Test
+    public void test_should_return_false_when_give_6_wrong_answer() {
+        //Given
+        String[] answers = {"2 3 1 5", "5 3 4 6", "8 1 9 2",
+                "2 3 7 4","3 1 2 5","8 1 2 6"};
+        Answer answer;
+        for (int i = 0; i < answers.length; i++) {
+            answer = Answer.createAnswer(answers[i]);
+            game.guess(answer);
+        }
+
+        //Then
+        assertFalse(game.checkCoutinue());
     }
 }
