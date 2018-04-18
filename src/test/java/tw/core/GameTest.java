@@ -17,13 +17,12 @@ import static org.mockito.Mockito.when;
 public class GameTest {
 
     private Game game;
-    private Answer actualAnswer;
 
     @Before
     public void setUp() throws Exception {
         //Given
         AnswerGenerator answerGenerator = mock(AnswerGenerator.class);
-        actualAnswer = Answer.createAnswer("1 2 3 4");
+        Answer actualAnswer = Answer.createAnswer("1 2 3 4");
 
         //When
         when(answerGenerator.generate()).thenReturn(actualAnswer);
@@ -75,13 +74,28 @@ public class GameTest {
     public void test_should_return_success_when_give_a_4A0B_answer() {
         //Given
         String[] answers = {"2 3 1 5", "5 3 4 6", "8 1 9 2",
-                "2 3 7 4","1 2 3 4"};
+                "2 3 7 4", "3 2 1 4", "1 2 3 4"};
         Answer answer;
         for (int i = 0; i < answers.length; i++) {
             answer = Answer.createAnswer(answers[i]);
             game.guess(answer);
         }
         String expect = "success";
+
+        //Then
+        assertThat(game.checkStatus(), is(expect));
+    }
+
+    @Test
+    public void test_should_return_continue_when_give_3_wrong_answer() {
+        //Given
+        String[] answers = {"2 3 1 5", "5 3 4 6", "8 1 9 2"};
+        Answer answer;
+        for (int i = 0; i < answers.length; i++) {
+            answer = Answer.createAnswer(answers[i]);
+            game.guess(answer);
+        }
+        String expect = "continue";
 
         //Then
         assertThat(game.checkStatus(), is(expect));
