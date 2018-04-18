@@ -76,4 +76,17 @@ public class AnswerTest {
         expectedException.expectMessage("Answer format is incorrect");
         answer.validate();
     }
+
+    @Test
+    public void test_answer_is_5678_should_return_1_when_get_index_of_6() {
+        //Given
+        String expectAnswer = "5 6 7 8";
+        Answer answer = Answer.createAnswer(expectAnswer);
+        int expect = 1;
+        String num = "6";
+
+        //Then
+        assertThat(answer.getIndexOfNum(num), is(expect));
+    }
+
 }
