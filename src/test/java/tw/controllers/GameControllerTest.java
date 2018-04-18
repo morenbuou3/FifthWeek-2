@@ -55,7 +55,7 @@ public class GameControllerTest {
     @Test
     public void test_begin_game_should_return_instructions() throws IOException {
         //Given
-        String expcet = "------Guess Number Game, You have 6 chances to guess!  ------\r\n";
+        String expcet = "------Guess Number Game, You have 6 chances to guess!  ------\n";
         gameController.beginGame();
 
         //Then
@@ -66,7 +66,7 @@ public class GameControllerTest {
     public void test_should_system_out_fail_when_game_status_is_fail() throws IOException {
         //Given
         String status = FAIL;
-        String expect = "Game Status: " + status + "\r\n";
+        String expect = "Game Status: " + status + "\n";
 
 
         //When
@@ -82,7 +82,7 @@ public class GameControllerTest {
     public void test_should_system_out_success_when_game_status_is_success() throws IOException {
         //Given
         String status = SUCCESS;
-        String expect = "Game Status: " + status + "\r\n";
+        String expect = "Game Status: " + status + "\n";
 
         //When
         when(game.checkStatus()).thenReturn(status);
@@ -97,10 +97,10 @@ public class GameControllerTest {
     public void test_should_system_out_instruction_when_input_answer() throws IOException {
         //Given
         Answer answer = Answer.createAnswer("1 2 3 4");
-        String expect = "Guess Result: 1A0B\r\n"
-                + "Guess History:\r\n"
-                + "[Guess Numbers: 1 2 3 4, Guess Result: 1A0B]\r\n"
-                + "Game Status: fail\r\n";
+        String expect = "Guess Result: 1A0B\n"
+                + "Guess History:\n"
+                + "[Guess Numbers: 1 2 3 4, Guess Result: 1A0B]\n"
+                + "Game Status: fail\n";
         GuessResult guessResult = new GuessResult("1A0B",answer);
         List<GuessResult> guessResults = new ArrayList<>();
         guessResults.add(guessResult);
