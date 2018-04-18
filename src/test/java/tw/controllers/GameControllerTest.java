@@ -4,12 +4,16 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import tw.commands.InputCommand;
+import tw.core.Answer;
 import tw.core.Game;
+import tw.core.model.GuessResult;
 import tw.views.GameView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -80,7 +84,6 @@ public class GameControllerTest {
         String status = SUCCESS;
         String expect = "Game Status: " + status + "\r\n";
 
-
         //When
         when(game.checkStatus()).thenReturn(status);
         gameController.play(inputCommand);
@@ -88,5 +91,29 @@ public class GameControllerTest {
         //Then
         assertThat(systemOut(), is(expect));
 
+    }
+
+    @Test
+    public void test_should_system_out_instruction_when_input_answer() throws IOException {
+        //Given
+        Answer answer = Answer.createAnswer("1 2 3 4");
+        String expect = "Guess Result: 1A0B\r\n"
+                + "Guess History:\r\n"
+                + "[Guess Numbers: 1 2 3 4, Guess Result: 1A0B]\r\n"
+                + "Game Status: fail\r\n";
+        GuessResult guessResult = new GuessResult("1A0B",answer);
+        List<GuessResult> guessResults = new ArrayList<>();
+        guessResults.add(guessResult);
+
+        //When
+        when(game.checkCoutinue()).thenReturn(true).thenReturn(false);
+        when(game.checkStatus()).thenReturn(FAIL);
+        when(inputCommand.input()).thenReturn(answer);
+        when(game.guess(answer)).thenReturn(guessResult);
+        when(game.guessHistory()).thenReturn(guessResults);
+        gameController.play(inputCommand);
+
+        //Then
+        assertThat(systemOut(), is(expect));
     }
 }
