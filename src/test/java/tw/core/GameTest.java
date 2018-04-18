@@ -42,4 +42,48 @@ public class GameTest {
         //Then
         assertThat(game.guess(answer).getResult(), is(expect));
     }
+
+    @Test
+    public void test_game_guess_guessHistory_should_have_1_item() {
+        //Given
+        String inputAnswer = "1 3 2 5";
+        Answer answer = Answer.createAnswer(inputAnswer);
+        int expect = 1;
+        game.guess(answer);
+
+        //Then
+        assertThat(game.guessHistory().size(), is(expect));
+    }
+
+    @Test
+    public void test_should_return_fail_when_give_6_wrong_answer() {
+        //Given
+        String[] answers = {"2 3 1 5", "5 3 4 6", "8 1 9 2",
+        "2 3 7 4","3 1 2 5","8 1 2 6"};
+        Answer answer;
+        for (int i = 0; i < answers.length; i++) {
+            answer = Answer.createAnswer(answers[i]);
+            game.guess(answer);
+        }
+        String expect = "fail";
+
+        //Then
+        assertThat(game.checkStatus(), is(expect));
+    }
+
+    @Test
+    public void test_should_return_success_when_give_a_4A0B_answer() {
+        //Given
+        String[] answers = {"2 3 1 5", "5 3 4 6", "8 1 9 2",
+                "2 3 7 4","1 2 3 4"};
+        Answer answer;
+        for (int i = 0; i < answers.length; i++) {
+            answer = Answer.createAnswer(answers[i]);
+            game.guess(answer);
+        }
+        String expect = "success";
+
+        //Then
+        assertThat(game.checkStatus(), is(expect));
+    }
 }
