@@ -86,5 +86,19 @@ public class AnswerGeneratorTest {
         answerGenerator.generate();
 
     }
+
+    @Test
+    public void test_should_return_an_OutOfRangeAnswerException_when_give_digit_without_trim() throws OutOfRangeAnswerException {
+        //Given
+        String expectAnswer = "1 2 34";
+
+        //When
+        when(randomIntGenerator.generateNums(10, 4)).thenReturn(expectAnswer);
+
+        //Then
+        expectedException.expect(OutOfRangeAnswerException.class);
+        expectedException.expectMessage("Answer format is incorrect");
+        answerGenerator.generate();
+    }
 }
 
