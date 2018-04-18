@@ -3,7 +3,7 @@
 ## 测出实现代码中的BUG
 
 1. AnswerGenerator类中generate()方法调用了randomIntGenerator.generateNums(9,4)方法，
-这里的9是digitmax，在generateNums方法中通过random.nextInt(digitmax)生成0~digitmax随机数，
+这里的9是digitmax，在generateNums方法中通过random.nextInt(digitmax)生成0到digitmax随机数，
 但是nextInt方法取的是开区间，因此如果想得到0~9，这里的digitmax应该写成10而不是9.
 
 2. Game类中的checkStatus()方法有BUG,测试过程中发现如果猜测数字6次，最后一次成功，按照任务需求应该输出
