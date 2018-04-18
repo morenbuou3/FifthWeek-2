@@ -1,12 +1,19 @@
 # Unit Test基础
 
+## 作业说明
+
+### 测试用例中的换行
+
+### 由于本机Windows开发，控制台输出测试用例中的所有换行都使用\r\n，提交作业到学院时发现编程无法通过，怀疑是服务器环境的问题，因此修改换行符为\n后，
+再次提交BuildSuccess。
+
 ## 测出实现代码中的BUG
 
-1. AnswerGenerator类中generate()方法调用了randomIntGenerator.generateNums(9,4)方法，
+### 1. AnswerGenerator类中generate()方法调用了randomIntGenerator.generateNums(9,4)方法，
 这里的9是digitmax，在generateNums方法中通过random.nextInt(digitmax)生成0到digitmax随机数，
 但是nextInt方法取的是开区间，因此如果想得到0~9，这里的digitmax应该写成10而不是9.
 
-2. Game类中的checkStatus()方法有BUG,测试过程中发现如果猜测数字6次，最后一次成功，按照任务需求应该输出
+### 2. Game类中的checkStatus()方法有BUG,测试过程中发现如果猜测数字6次，最后一次成功，按照任务需求应该输出
 success但是由于判断条件是次数判断在前，因此最后输出的是fail，应该将判断顺序进行调整.
 
 ## 练习描述
